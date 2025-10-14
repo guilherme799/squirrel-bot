@@ -1,0 +1,90 @@
+{
+  "events_timeout": 300,
+  "prefix": "!",
+  "tempDir": "../../../assets/temp",
+  "openAIConfig": {
+    "apiKey": "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",
+    "url": "https://api.openai.com/v1/chat/completions"
+  },
+  "botConfig": {
+    "emoji": "🤖",
+    "name": "SquirrelBot",
+    "phoneNumber": "5531991458868"
+  },
+  "contexts": [
+    {
+      "name": "Members",
+      "isPublic": true,
+      "onlyOwner": false,
+      "icon": "🔓",
+      "commands": [
+        {
+          "name": "Ping",
+          "variations": [
+            "ping",
+            "pong"
+          ]
+        },
+        {
+          "name": "Menu",
+          "variations": [
+            "menu",
+            "help",
+            "info"
+          ]
+        },
+        {
+          "name": "Cep",
+          "variations": [
+            "cep"
+          ]
+        },
+        {
+          "name": "Gpt",
+          "variations": [
+            "gpt",
+            "ia",
+            "ai",
+            "bot",
+            "squirrel",
+            "openai"
+          ]
+        },
+        {
+          "name": "Sticker",
+          "variations": [
+            "sticker",
+            "s",
+            "fig",
+            "f"
+          ]
+        },
+        {
+          "name": "ToImage",
+          "variations": [
+            "toimage",
+            "toimg",
+            "2img",
+            "i"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "isPublic": false,
+      "onlyOwner": false,
+      "icon": "🔒",
+      "commands": [
+        {
+          "name": "Banish",
+          "variations": [
+            "ban",
+            "banish",
+            "kick"
+          ]
+        }
+      ]
+    }
+  ]
+}
