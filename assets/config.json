@@ -3,7 +3,7 @@
   "prefix": "!",
   "tempDir": "../../../assets/temp",
   "openAIConfig": {
-    "apiKey": "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",
+    "apiKey": "your_apikey_here",
     "url": "https://api.openai.com/v1/chat/completions"
   },
   "botConfig": {
