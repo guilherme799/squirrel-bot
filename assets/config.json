@@ -2,6 +2,7 @@
   "events_timeout": 300,
   "prefix": "!",
   "tempDir": "../../../assets/temp",
+  "stickersDir": "../../../assets/stickers",
   "openAIConfig": {
     "apiKey": "your_apikey_here",
     "url": "https://api.openai.com/v1/chat/completions"
@@ -67,6 +68,15 @@
             "2img",
             "i"
           ]
+        },
+        {
+          "name": "Dice",
+          "variations": [
+            "dado",
+            "dice",
+            "rolardado",
+            "rolldice"
+          ]
         }
       ]
     },
@@ -82,6 +92,17 @@
             "ban",
             "banish",
             "kick"
+          ]
+        },
+        {
+          "name": "SaveMessage",
+          "variations": [
+            "save",
+            "savemessage",
+            "savemsg",
+            "salvar",
+            "salvarMensagem",
+            "salvarmsg"
           ]
         }
       ]

@@ -35,4 +35,8 @@ export class ConfigService {
   public static get applicationVersion():string{
     return packageInfo.version;
   }
+
+  public static get stickersDir():string{
+    return path.resolve(__dirname, config.stickersDir);
+  }
 }

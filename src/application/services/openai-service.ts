@@ -21,6 +21,6 @@ export class OpenAIService {
       messages: [{ role: "user", content: content }],
     });
 
-    return completion.choices.firstOrDefault()?.message.content;
+    return completion.choices.find(() => true)?.message.content;
   }
 }

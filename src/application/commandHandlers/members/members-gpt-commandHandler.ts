@@ -22,7 +22,7 @@ export class MembersGptCommandHandler implements ICommandHandler {
   }
 
   private tryGetContentFromArgs(args?: Array<any>) {
-    let content: string = args?.firstOrDefault();
+    let content: string = args?.find(() => true);
     if (!content)
       throw new WarningMessageError("Você precisa enviar um texto!");
 

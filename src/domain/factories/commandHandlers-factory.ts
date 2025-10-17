@@ -20,7 +20,7 @@ export class CommandHandlerFactory {
 
   private getContextConfiguration(command: WhatsAppCommand) {
     let { contextsConfig } = ConfigService;
-    let contextConfig = contextsConfig.firstOrDefault((config) =>
+    let contextConfig = contextsConfig.find((config) =>
       config.commands.any((cmd) =>
         cmd.variations.includes(command.commandName!.trim())
       )
@@ -74,7 +74,7 @@ export class CommandHandlerFactory {
     contextConfig: ContextConfig,
     whatsAppCommand: WhatsAppCommand
   ) {
-    return contextConfig.commands.firstOrDefault((cmd) =>
+    return contextConfig.commands.find((cmd) =>
       cmd.variations.includes(whatsAppCommand.commandName!)
     );
   }

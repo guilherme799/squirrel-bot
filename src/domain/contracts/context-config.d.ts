@@ -1,4 +1,4 @@
-export interface CommandConfig {
+declare interface CommandConfig {
   name: string;
   variations: Array<string>;
 }

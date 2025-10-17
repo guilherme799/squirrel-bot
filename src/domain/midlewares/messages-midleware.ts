@@ -22,7 +22,7 @@ export class MessagesMidleware {
   }
 
   private tryGetMessage(messages: WAMessage[]) {
-    let message = messages.firstOrDefault();
+    let message = messages.find(() => true);
     if (!message) ConsoleService.logError("messagem not found");
 
     return message;

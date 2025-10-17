@@ -11,6 +11,7 @@ import { OpenAIService } from "./application/services/openai-service";
 import { MembersStickerCommandHandler } from "./application/commandHandlers/members/members-sticker-commandHandler";
 import { MembersToImageCommandHandler } from "./application/commandHandlers/members/members-toimage-commandHandler";
 import { AdminBanishCommandHandler } from "./application/commandHandlers/admin/admin-banish-commandHandler";
+import { MembersDiceCommandHandler } from "./application/commandHandlers/members/members-dice-commandHandler";
 
 Container.get(MainService).start(
   /**
@@ -22,6 +23,7 @@ Container.get(MainService).start(
   new MembersGptCommandHandler(Container.get(OpenAIService)),
   new MembersStickerCommandHandler(),
   new MembersToImageCommandHandler(),
+  new MembersDiceCommandHandler(),
   /**
    * Admin Command Handlers
    */

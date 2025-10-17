@@ -15,6 +15,7 @@ import fs from "fs";
 import { AlertTypeEnum } from "../enums/alert-type-enum";
 import { MediaExtensionsEnum } from "../enums/media-extensions-enum";
 import { ParticipantsActionEnum } from "../enums/participants-action-enum";
+import { queryObjects } from "v8";
 
 export class WhatsAppCommand {
   args?: any[] | undefined;
@@ -28,7 +29,7 @@ export class WhatsAppCommand {
   userJid?: string | null | undefined;
   messageMidiaType?: MediaType | null | undefined;
   messageContent?: DownloadableMessage | null | undefined;
-  whatsAppMessage?: WAMessage | null | undefined;
+  whatsAppMessage?: WAMessage | undefined;
   socket?: WASocket | null | undefined;
 
   constructor(whatsappMessagesage: WAMessage, soket?: WASocket) {
@@ -221,7 +222,7 @@ export class WhatsAppCommand {
     return await this.socket.sendMessage(
       this.remoteJid,
       { text: text ?? "" },
-      { quoted: this.whatsAppMessage! }
+      { quoted: this.whatsAppMessage }
     );
   }
 
@@ -251,16 +252,38 @@ export class WhatsAppCommand {
 
   public async sendMessageFromFile(
     filePath: string,
-    isImage: boolean
+    isImage: boolean,
+    quoted: boolean = true
   ): Promise<proto.WebMessageInfo | null | undefined> {
+    return this.internalSendMessage(quoted, () => {
+      if (isImage) return { image: fs.readFileSync(filePath) };
+      else return { sticker: fs.readFileSync(filePath) };
+    });
+  }
+
+  public async sendMessageFromUrl(
+    url: string,
+    isImage: boolean,
+    quoted: boolean = true
+  ): Promise<proto.WebMessageInfo | undefined | null> {
+    return this.internalSendMessage(quoted, () => {
+      if (isImage) return { image: { url } };
+      else return { sticker: { url } };
+    });
+  }
+
+  private async internalSendMessage(
+    quoted: boolean,
+    contentResolver: () => AnyMessageContent
+  ): Promise<proto.WebMessageInfo | undefined | null> {
     if (this.socket == null || this.remoteJid == null) return null;
 
-    let body: AnyMessageContent;
+    let quotedObject = quoted ? { quoted: this.whatsAppMessage } : {};
+    let data = contentResolver();
 
-    if (isImage) body = { image: fs.readFileSync(filePath) };
-    else body = { sticker: fs.readFileSync(filePath) };
-
-    return await this.socket.sendMessage(this.remoteJid, body);
+    return await this.socket.sendMessage(this.remoteJid, data, {
+      ...quotedObject,
+    });
   }
 
   public get hasPrefix(): boolean {
@@ -272,7 +295,11 @@ export class WhatsAppCommand {
     participantsAction: ParticipantsActionEnum
   ) {
     if (this.socket == null || this.remoteJid == null) return null;
-    
-    await this.socket.groupParticipantsUpdate(this.remoteJid, participants, participantsAction)
+
+    await this.socket.groupParticipantsUpdate(
+      this.remoteJid,
+      participants,
+      participantsAction
+    );
   }
 }

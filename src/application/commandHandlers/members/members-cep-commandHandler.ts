@@ -15,7 +15,7 @@ export class MembersCepCommandHandler implements ICommandHandler {
   context = ContextCommandUsage.members;
 
   public async handle(command: WhatsAppCommand): Promise<void> {
-    let cep = command.args?.firstOrDefault();
+    let cep = command.args?.find(() => true);
     this.throwIfCepIsInvalid(cep);
 
     let cepResponse = await this.tryGetCepResponse(cep);
