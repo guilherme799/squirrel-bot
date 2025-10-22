@@ -1,5 +1,5 @@
 {
-  "name": "skybot",
+  "name": "squirrelbot",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.6.1",
+    "@types/ws": "^8.18.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

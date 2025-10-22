@@ -19,11 +19,16 @@ export class AdminSaveMessageCommandHandler implements ICommandHandler {
     "salvarMensagem",
     "salvarmsg",
   ];
-  usage = `(${ConfigService.prefix}savemsg (marque a imagem/gif/video/audio) 
-  ou ${ConfigService.prefix}savemessage (responda a imagem/gif/video/audio)) Nome da mídia [Comentário opcional da mídia]`;
+  usage: string;
   context = ContextCommandUsage.admin;
 
-  constructor(private savedFilesService: SavedFilesService) {}
+  constructor(
+    private savedFilesService: SavedFilesService,
+    private configService: ConfigService
+  ) {
+    this.usage = `(${this.configService.prefix}savemsg (marque a imagem/gif/video/audio) 
+    ou ${this.configService.prefix}savemessage (responda a imagem/gif/video/audio)) Nome da mídia [Comentário opcional da mídia]`;
+  }
 
   public async handle(command: WhatsAppCommand): Promise<void> {
     //TODO - validar o comando

@@ -24,7 +24,11 @@ import { ConsoleService } from "./console-service";
 export class ConnectionService {
   private msgRetryCounterCache!: NodeCache;
 
-  constructor(private loaderEvetnsServie: LoaderEventsService) {
+  constructor(
+    private loaderEvetnsServie: LoaderEventsService,
+    private configService: ConfigService,
+    private consoleService: ConsoleService
+  ) {
     this.msgRetryCounterCache = new NodeCache();
   }
 
@@ -43,7 +47,7 @@ export class ConnectionService {
     let logger = pino(
       { timestamp: () => `,"time":"${new Date().toJSON()}"` },
       destination({
-        fd: fs.openSync(`${ConfigService.tempDir}/wa-logs.txt`, "a"),
+        fd: fs.openSync(`${this.configService.tempDir}/wa-logs.txt`, "a"),
       })
     );
 
@@ -72,17 +76,17 @@ export class ConnectionService {
   private async getPairingCode(socket: WASocket): Promise<void> {
     let { creds } = socket.authState;
     if (creds.registered && creds.pairingCode) {
-      ConsoleService.logInfo(`Paring code: ${creds.pairingCode}`);
+      this.consoleService.logInfo(`Paring code: ${creds.pairingCode}`);
       return;
     }
 
-    let phoneNumber = await ConsoleService.question(
+    let phoneNumber = await this.consoleService.question(
       "Informe o número de telefone do bot: "
     );
-    ConsoleService.logInfo(`Get paring code to phone number: ${phoneNumber}`);
+    this.consoleService.logInfo(`Get paring code to phone number: ${phoneNumber}`);
 
     let paringCode = await socket.requestPairingCode(phoneNumber);
-    ConsoleService.logInfo(`Paring code: ${paringCode}`);
+    this.consoleService.logInfo(`Paring code: ${paringCode}`);
   }
 
   private registerEvents(socket: WASocket, saveCreds: () => Promise<void>) {
@@ -100,12 +104,12 @@ export class ConnectionService {
     let { connection, lastDisconnect } = updatedConnection;
     switch (connection) {
       case ConnectionStatus.open:
-        ConsoleService.logSuccess("Bot succesfully connected");
+        this.consoleService.logSuccess("Bot succesfully connected");
         this.loaderEvetnsServie.load(socket);
         break;
       case ConnectionStatus.close:
         let error: Output = (lastDisconnect?.error as Boom<any>)?.output;
-        ConsoleService.logError(
+        this.consoleService.logError(
           `Socket disconnected. status code: ${error?.statusCode}, reason: ${error?.payload?.message}`
         );
         break;

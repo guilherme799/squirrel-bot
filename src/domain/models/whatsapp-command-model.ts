@@ -32,7 +32,13 @@ export class WhatsAppCommand {
   whatsAppMessage?: WAMessage | undefined;
   socket?: WASocket | null | undefined;
 
-  constructor(whatsappMessagesage: WAMessage, soket?: WASocket) {
+  private configService!: ConfigService;
+
+  constructor(
+    whatsappMessagesage: WAMessage,
+    configService: ConfigService,
+    soket?: WASocket
+  ) {
     let fullMessage =
       whatsappMessagesage.message?.conversation ??
       whatsappMessagesage.message?.extendedTextMessage?.text ??
@@ -41,6 +47,7 @@ export class WhatsAppCommand {
 
     this.whatsAppMessage = whatsappMessagesage;
     this.socket = soket;
+    this.configService = configService!;
     this.buildCommand(fullMessage, whatsappMessagesage);
   }
 
@@ -51,7 +58,7 @@ export class WhatsAppCommand {
     let [command, ...args] = (fullMessage || "").split(" ");
     let prefix = command.charAt(0);
     let commandWithoutPrefix = command.replace(
-      new RegExp(`^[${ConfigService.prefix}]+`),
+      new RegExp(`^[${this.configService.prefix}]+`),
       ""
     );
 
@@ -197,7 +204,7 @@ export class WhatsAppCommand {
     }
 
     const filePath = path.resolve(
-      ConfigService.tempDir,
+      this.configService.tempDir,
       `${fileName}.${extension}`
     );
 
@@ -287,7 +294,7 @@ export class WhatsAppCommand {
   }
 
   public get hasPrefix(): boolean {
-    return ConfigService.prefix.equals(this.prefix!);
+    return this.configService.prefix.equals(this.prefix!);
   }
 
   public async groupParticipantsUpdate(

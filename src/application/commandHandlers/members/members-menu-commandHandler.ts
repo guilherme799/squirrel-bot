@@ -14,8 +14,12 @@ export class MembersMenuCommandHandler implements ICommandHandler {
   name = "Menu";
   description = "Comando para exibir o menu do bot";
   variadions = ["menu", "help", "info"];
-  usage = `${ConfigService.prefix}menu`;
+  usage: string;
   context = ContextCommandUsage.members;
+
+  constructor(private configService: ConfigService) {
+    this.usage = `${this.configService.prefix}menu`;
+  }
 
   public async handle(command: WhatsAppCommand): Promise<void> {
     let { whatsAppMessage, args } = command;
@@ -25,7 +29,7 @@ export class MembersMenuCommandHandler implements ICommandHandler {
   private getMenuMessage(requestedUserName: string | null | undefined): string {
     const date = new Date();
     const readMore = "\u200B".repeat(950);
-    const { prefix, applicationVersion, botConfig } = ConfigService;
+    const { prefix, applicationVersion, botConfig } = this.configService;
 
     let menu = `╭━━⪩ BEM VINDO! *${requestedUserName}* ⪨━━${readMore}
 ▢
@@ -37,7 +41,7 @@ export class MembersMenuCommandHandler implements ICommandHandler {
 ▢
 ╰━━─「🪐」─━━`;
 
-    for (let contexConfig of ConfigService.contextsConfig) {
+    for (let contexConfig of this.configService.contextsConfig) {
       menu += `\n╭━━⪩ ${contexConfig.name} ⪨━━\n▢`;
       for (let command of contexConfig.commands) {
         let commandHandler: ICommandHandler = this.getCommandHandler(

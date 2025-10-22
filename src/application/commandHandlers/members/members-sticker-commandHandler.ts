@@ -17,16 +17,20 @@ export class MembersStickerCommandHandler extends IMediaCommandHandler {
   name = "Sticker";
   description = "Comando para criar figurinhas de imagem/gif/video";
   variadions = ["sticker", "s", "fig", "f"];
-  usage = `${ConfigService.prefix}sticker (marque a imagem/gif/video) ou ${ConfigService.prefix}sticker (responda a imagem/gif/video)`;
+  usage: string;
   context = ContextCommandUsage.members;
   isImage = false;
 
+  constructor(private configService: ConfigService) {
+    super();
+    this.usage = `${this.configService.prefix}sticker (marque a imagem/gif/video) ou ${this.configService.prefix}sticker (responda a imagem/gif/video)`;
+  }
   public async handle(command: WhatsAppCommand): Promise<void> {
     this.ThrowIfMessageIsInvalid(command);
 
     command.sendAlert(AlertTypeEnum.waiting);
     let outputPath = path.resolve(
-      ConfigService.tempDir,
+      this.configService.tempDir,
       `output.${MediaExtensionsEnum.webp}`
     );
 

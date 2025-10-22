@@ -1,42 +1,46 @@
+import "reflect-metadata";
 import path from "path";
-import config from "../../../assets/config.json"
-import packageInfo from "../../../package.json"
-import { ContextConfig } from "../contracts/context-config";
+import packageInfo from "../../../package.json";
+import type { Configuration, ContextConfig } from "../contracts/context-config";
+import { Service } from "typedi";
 
+@Service()
 export class ConfigService {
-  public static get eventsTimeout(): number {
-    return config.events_timeout;
+  constructor(private config: Configuration) {}
+
+  public get eventsTimeout(): number {
+    return this.config.events_timeout;
   }
 
-  public static get prefix(): string {
-    return config.prefix;
+  public get prefix(): string {
+    return this.config.prefix;
   }
 
-  public static get tempDir(): string {
-    return path.resolve(__dirname, config.tempDir);
+  public get tempDir(): string {
+    return path.resolve(__dirname, this.config.tempDir);
   }
 
-  public static get openAIConfig(): { apiKey: string; url: string } {
-    return config.openAIConfig;
+  public get openAIConfig(): { apiKey: string; url: string } {
+    return this.config.openAIConfig;
   }
 
-  public static get botConfig(): {
+  public get botConfig(): {
     emoji: string;
     name: string;
     phoneNumber: string;
   } {
-    return config.botConfig;
+    return this.config.botConfig;
   }
 
-  public static get contextsConfig(): Array<ContextConfig> {
-    return config.contexts;
+  public get contextsConfig(): Array<ContextConfig> {
+    return this.config.contexts;
   }
 
-  public static get applicationVersion():string{
+  public get applicationVersion(): string {
     return packageInfo.version;
   }
 
-  public static get stickersDir():string{
-    return path.resolve(__dirname, config.stickersDir);
+  public get stickersDir(): string {
+    return path.resolve(__dirname, this.config.stickersDir);
   }
 }

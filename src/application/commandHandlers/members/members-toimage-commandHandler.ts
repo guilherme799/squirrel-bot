@@ -14,9 +14,14 @@ export class MembersToImageCommandHandler extends IMediaCommandHandler {
   name = "ToImage";
   description = "Comando para transformar figurinhas estáticas em imagem";
   variadions = ["toimage", "toimg", "2img", "i"];
-  usage = `${ConfigService.prefix}toimg (marque a figurinha) ou ${ConfigService.prefix}toimg (responda a figurinha)`;
+  usage: string;
   context = ContextCommandUsage.members;
   isImage = true;
+
+  constructor(private configService: ConfigService) {
+    super();
+    this.usage = `${this.configService.prefix}toimg (marque a figurinha) ou ${this.configService.prefix}toimg (responda a figurinha)`;
+  }
 
   public async handle(command: WhatsAppCommand): Promise<void> {
     this.throwIfMessageIsInvalid(command);
@@ -49,7 +54,7 @@ export class MembersToImageCommandHandler extends IMediaCommandHandler {
       MediaExtensionsEnum.webp
     );
     let outputPath = path.resolve(
-      ConfigService.tempDir,
+      this.configService.tempDir,
       `output.${MediaExtensionsEnum.png}`
     );
 

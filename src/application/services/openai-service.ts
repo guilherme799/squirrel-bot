@@ -2,14 +2,15 @@ import "reflect-metadata";
 import OpenAI from "openai";
 import { Service } from "typedi";
 import { ConfigService } from "../../domain/services/config-service";
+import { IOpenAIService } from "../../domain/contracts/iopenai-service";
 
-@Service()
-export class OpenAIService {
+@Service("IOpenAIService")
+export class OpenAIService implements IOpenAIService {
   private client: OpenAI;
 
-  constructor() {
+  constructor(private configService: ConfigService) {
     this.client = new OpenAI({
-      apiKey: ConfigService.openAIConfig.apiKey,
+      apiKey: this.configService.openAIConfig.apiKey,
     });
   }
 

@@ -14,8 +14,12 @@ export class MembersDiceCommandHandler implements ICommandHandler {
   description =
     "Comando para girar um dado e obter um valor aleatório entre 1 e 6";
   variadions = ["dado", "dice", "rolardado", "rolldice"];
-  usage = `${ConfigService.prefix}dado`;
+  usage: string;
   context = ContextCommandUsage.members;
+
+  constructor(private configService: ConfigService) {
+    this.usage = `${this.configService.prefix}dado`;
+  }
 
   public async handle(command: WhatsAppCommand): Promise<void> {
     await command.replyAlert("🎲 Rolando o dado...", AlertTypeEnum.waiting);
@@ -24,7 +28,7 @@ export class MembersDiceCommandHandler implements ICommandHandler {
 
     await delay(2000);
     await command.sendMessageFromUrl(
-      path.resolve(ConfigService.stickersDir, "dice", `${result}.webp`),
+      path.resolve(this.configService.stickersDir, "dice", `${result}.webp`),
       false
     );
 

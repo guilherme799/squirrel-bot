@@ -11,7 +11,10 @@ import { ICommandHandler } from "../contracts/icommand-handler";
 
 @Service()
 export class CommandService {
-  constructor(private commandHandlerFactory: CommandHandlerFactory) {}
+  constructor(
+    private commandHandlerFactory: CommandHandlerFactory,
+    private consoleService: ConsoleService
+  ) {}
 
   public async executeDynamicCommand(command: WhatsAppCommand): Promise<void> {
     if (!command.hasPrefix || !command.commandName) return;
@@ -38,7 +41,7 @@ export class CommandService {
     try {
       await commandHandler?.handle(command);
     } catch (ex) {
-      ConsoleService.logWarning(JSON.stringify(ex));
+      this.consoleService.logWarning(JSON.stringify(ex));
       if (
         ex instanceof InvalidArqumentsError ||
         ex instanceof WarningMessageError

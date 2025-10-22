@@ -10,8 +10,12 @@ export class MembersPingCommandHandler implements ICommandHandler {
   name = "Ping";
   description = "Comando para verificar se o bot está online";
   variadions = ["ping", "pong"];
-  usage = `${ConfigService.prefix}ping`;
+  usage: string;
   context = ContextCommandUsage.members;
+
+  constructor(private configService: ConfigService) {
+    this.usage = `${this.configService.prefix}ping`;
+  }
 
   public async handle(command: WhatsAppCommand): Promise<void> {
     let response = command.commandName == "ping" ? "Pong" : "Ping";

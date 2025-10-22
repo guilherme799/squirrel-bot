@@ -6,6 +6,8 @@ import { ContextConfig } from "../contracts/context-config";
 
 @Service()
 export class CommandHandlerFactory {
+  constructor(private configService: ConfigService) {}
+
   public async getCommandHandler(
     whatsAppCommand: WhatsAppCommand
   ): Promise<ICommandHandler | null | undefined> {
@@ -19,7 +21,7 @@ export class CommandHandlerFactory {
   }
 
   private getContextConfiguration(command: WhatsAppCommand) {
-    let { contextsConfig } = ConfigService;
+    let { contextsConfig } = this.configService;
     let contextConfig = contextsConfig.find((config) =>
       config.commands.any((cmd) =>
         cmd.variations.includes(command.commandName!.trim())

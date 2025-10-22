@@ -6,13 +6,16 @@ import { WASocket } from "baileys";
 
 @Service()
 export class LoaderEventsService {
-  constructor(private messagesMidleware: MessagesMidleware) {}
+  constructor(
+    private messagesMidleware: MessagesMidleware,
+    private configService: ConfigService
+  ) {}
 
   public load(socket: WASocket): void {
     socket.ev.on("messages.upsert", ({ messages }) => {
       setTimeout(async () => {
         await this.messagesMidleware.handleMessageUpsert(socket, messages);
-      }, ConfigService.eventsTimeout);
+      }, this.configService.eventsTimeout);
     });
   }
 }

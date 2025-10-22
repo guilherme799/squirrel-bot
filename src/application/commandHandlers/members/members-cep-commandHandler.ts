@@ -9,13 +9,17 @@ import { WarningMessageError } from "../../../domain/models/errors/warning-messa
 import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
 import { Service } from "typedi";
 
-@Service({id: "MembersCepCommandHandler", transient: true})
+@Service({ id: "MembersCepCommandHandler", transient: true })
 export class MembersCepCommandHandler implements ICommandHandler {
   name = "Cep";
   description = "Comando para consultar um CEP na API dos correios";
   variadions = ["cep"];
-  usage = `${ConfigService.prefix}cep 01001-001`;
+  usage: string;
   context = ContextCommandUsage.members;
+
+  constructor(private configService: ConfigService) {
+    this.usage = `${this.configService.prefix}cep 01001-001`;
+  }
 
   public async handle(command: WhatsAppCommand): Promise<void> {
     let cep = command.args?.find(() => true);

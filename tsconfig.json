@@ -7,8 +7,8 @@
     "rootDir": "./src",
 
     /* Padrão de módulo moderno */
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
 
     /* Versão de JS que vai ser emitida */
     "target": "ES2022",
@@ -28,7 +28,7 @@
     "isolatedModules": true,
 
     /* Habilita suporte a top-level await e features novas */
-    "lib": ["ES2022"],
+    "lib": ["ES2022", "DOM"],
 
     /* Suporte a decorators (se for usar NestJS ou libs que usam) */
     "experimentalDecorators": true,

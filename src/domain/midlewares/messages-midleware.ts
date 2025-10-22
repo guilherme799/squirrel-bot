@@ -4,10 +4,15 @@ import { WhatsAppCommand } from "../models/whatsapp-command-model";
 import { CommandService } from "../services/command-service";
 import { WAMessage, WASocket } from "baileys";
 import { ConsoleService } from "../services/console-service";
+import { ConfigService } from "../services/config-service";
 
 @Service()
 export class MessagesMidleware {
-  constructor(private commandService: CommandService) {}
+  constructor(
+    private commandService: CommandService,
+    private consoleService: ConsoleService,
+    private configService: ConfigService
+  ) {}
 
   public async handleMessageUpsert(
     socket: WASocket,
@@ -23,7 +28,7 @@ export class MessagesMidleware {
 
   private tryGetMessage(messages: WAMessage[]) {
     let message = messages.find(() => true);
-    if (!message) ConsoleService.logError("messagem not found");
+    if (!message) this.consoleService.logError("messagem not found");
 
     return message;
   }
@@ -32,6 +37,6 @@ export class MessagesMidleware {
     whatsappMessagesage: WAMessage,
     socket: WASocket
   ): WhatsAppCommand {
-    return new WhatsAppCommand(whatsappMessagesage, socket);
+    return new WhatsAppCommand(whatsappMessagesage, this.configService, socket);
   }
 }
