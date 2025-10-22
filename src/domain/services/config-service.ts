@@ -8,6 +8,14 @@ import { Service } from "typedi";
 export class ConfigService {
   constructor(private config: Configuration) {}
 
+  public throwIsCofigurationIsNull() {
+    if (!this.config) {
+      console.error("\x1b[31m[ERROR] \x1b[31mConfiguration not setup properly.\x1b[0m");
+
+      process.exit(1);
+    }
+  }
+
   public get eventsTimeout(): number {
     return this.config.events_timeout;
   }

@@ -8,8 +8,8 @@ import { ConfigService } from "./config-service";
 export class MainService {
   constructor(private connectionService: ConnectionService) {}
 
-  public async start(config: Configuration): Promise<void> {
-    Container.set(ConfigService, new ConfigService(config));
+  public async start(): Promise<void> {
+    Container.get(ConfigService).throwIsCofigurationIsNull();
     await this.connectionService.connect();
   }
 }

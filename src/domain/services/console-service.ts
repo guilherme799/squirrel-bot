@@ -1,7 +1,9 @@
 import "reflect-metadata";
 import * as readLine from "readline";
 import { ConfigService } from "./config-service";
+import { Service } from "typedi";
 
+@Service()
 export class ConsoleService {
   constructor(private congigService: ConfigService) {}
 

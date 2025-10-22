@@ -6,7 +6,7 @@ import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
 import { ConfigService } from "../../../domain/services/config-service";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { Inject, Service } from "typedi";
-import type { IOpenAIService } from "../../../domain/contracts/iopenai-service";
+import { OpenAIService } from "../../services";
 
 @Service({ id: "MembersGptCommandHandler", transient: true })
 export class MembersGptCommandHandler implements ICommandHandler {
@@ -17,8 +17,7 @@ export class MembersGptCommandHandler implements ICommandHandler {
   context = ContextCommandUsage.members;
 
   constructor(
-    @Inject("IOpenAIService")
-    private openaiService: IOpenAIService,
+    private openaiService: OpenAIService,
     private configService: ConfigService
   ) {
     this.usage = `${this.configService.prefix}gpt`;
