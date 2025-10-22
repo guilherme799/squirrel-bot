@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import path from "path";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { IMediaCommandHandler } from "../../contracts/imedia-command-handler";
@@ -6,12 +7,14 @@ import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
 import { AlertTypeEnum } from "../../../domain/enums/alert-type-enum";
 import { InvalidArqumentsError } from "../../../domain/models/errors/invalid-arguments-error";
 import { MediaExtensionsEnum } from "../../../domain/enums/media-extensions-enum";
+import { Service } from "typedi";
 
+@Service({ id: "MembersToImageCommandHandler", transient: true })
 export class MembersToImageCommandHandler extends IMediaCommandHandler {
   name = "ToImage";
   description = "Comando para transformar figurinhas estáticas em imagem";
   variadions = ["toimage", "toimg", "2img", "i"];
-  usage = `${ConfigService.prefix}sticker (marque a figurinha) ou ${ConfigService.prefix}sticker (responda a figurinha)`;
+  usage = `${ConfigService.prefix}toimg (marque a figurinha) ou ${ConfigService.prefix}toimg (responda a figurinha)`;
   context = ContextCommandUsage.members;
   isImage = true;
 
@@ -49,7 +52,7 @@ export class MembersToImageCommandHandler extends IMediaCommandHandler {
       ConfigService.tempDir,
       `output.${MediaExtensionsEnum.png}`
     );
-    
+
     return { inputPath, outputPath };
   }
 }

@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import path from "path";
 import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
 import { AlertTypeEnum } from "../../../domain/enums/alert-type-enum";
@@ -5,7 +6,9 @@ import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
 import { ConfigService } from "../../../domain/services/config-service";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { delay } from "baileys";
+import { Service } from "typedi";
 
+@Service({ id: "MembersDiceCommandHandler", transient: true })
 export class MembersDiceCommandHandler implements ICommandHandler {
   name = "Dice";
   description =

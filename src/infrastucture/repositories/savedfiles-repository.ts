@@ -1,17 +1,20 @@
 import { Service } from "typedi";
-import { SavedFile } from "../entities/saved.file";
+import { SavedFile } from "../entities/saved.files";
 
-export class SavedFilesRepository implements IRepository<SavedFile> {
+@Service()
+export class SavedFilesRepository {
+  public async get(
+    predicate: (filter: SavedFile) => boolean
+  ): Promise<SavedFile[]> {
+    throw new Error("Method not implemented.");
+  }
 
-    public async get(predicate: (filter: SavedFile) => boolean): Promise<SavedFile[]> {
-        throw new Error("Method not implemented.");
-    }
+  public async insert(entity: SavedFile): Promise<SavedFile> {
+    entity.id = Math.random() * 1000;
+    return entity;
+  }
 
-    public async insert(entity: SavedFile): Promise<SavedFile> {
-        throw new Error("Method not implemented.");
-    }
-
-    public async delete(id: number): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
+  public async delete(id: number): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
 }

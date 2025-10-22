@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { CepResponse, consultarCep } from "correios-brasil/dist";
 import { AlertTypeEnum } from "../../../domain/enums/alert-type-enum";
 import { InvalidArqumentsError } from "../../../domain/models/errors/invalid-arguments-error";
@@ -6,7 +7,9 @@ import { ConfigService } from "../../../domain/services/config-service";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { WarningMessageError } from "../../../domain/models/errors/warning-message-error";
 import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
+import { Service } from "typedi";
 
+@Service({id: "MembersCepCommandHandler", transient: true})
 export class MembersCepCommandHandler implements ICommandHandler {
   name = "Cep";
   description = "Comando para consultar um CEP na API dos correios";

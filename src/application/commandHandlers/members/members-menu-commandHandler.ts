@@ -1,10 +1,15 @@
-import Container from "typedi";
+import "reflect-metadata";
+import Container, { Service } from "typedi";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { ConfigService } from "../../../domain/services/config-service";
 import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
-import { CommandConfig, ContextConfig } from "../../../domain/contracts/context-config";
+import {
+  CommandConfig,
+  ContextConfig,
+} from "../../../domain/contracts/context-config";
 import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
 
+@Service({ id: "MembersMenuCommandHandler", transient: true })
 export class MembersMenuCommandHandler implements ICommandHandler {
   name = "Menu";
   description = "Comando para exibir o menu do bot";
@@ -13,7 +18,7 @@ export class MembersMenuCommandHandler implements ICommandHandler {
   context = ContextCommandUsage.members;
 
   public async handle(command: WhatsAppCommand): Promise<void> {
-    let { whatsAppMessage } = command;
+    let { whatsAppMessage, args } = command;
     await command.replyText(this.getMenuMessage(whatsAppMessage?.pushName));
   }
 

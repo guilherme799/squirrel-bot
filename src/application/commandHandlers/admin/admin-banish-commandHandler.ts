@@ -6,7 +6,9 @@ import { ConfigService } from "../../../domain/services/config-service";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { DangerMessageError } from "../../../domain/models/errors/danger-message-error";
 import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
+import { Service } from "typedi";
 
+@Service({ id: "AdminBanishCommandHandler", transient: true })
 export class AdminBanishCommandHandler implements ICommandHandler {
   name = "Banish";
   description = "Comando para banir usuários do grupo";
@@ -45,9 +47,9 @@ export class AdminBanishCommandHandler implements ICommandHandler {
   private getUserJid(args: string[] | undefined): string | null | undefined {
     let parsedArgs = `${args![0].replace(/[^0-9]/g, "")}`.replace("@", "");
 
-      return parsedArgs.length >= 14
-    ? `${parsedArgs}@lid`
-    : `${parsedArgs}@s.whatsapp.net`;
+    return parsedArgs.length >= 14
+      ? `${parsedArgs}@lid`
+      : `${parsedArgs}@s.whatsapp.net`;
   }
 
   private throwIfUserCannotBeRemoved(

@@ -1,7 +1,7 @@
 import { ContextCommandUsage } from "../../application/enums/context-command-usage-enum";
-import { WhatsAppCommand } from "../../domain/models/whatsapp-command-model";
+import { WhatsAppCommand } from "../models/whatsapp-command-model";
 
-declare interface ICommandHandler {
+export interface ICommandHandler {
   name: string;
   description: string;
   variadions: Array<string>;

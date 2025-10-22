@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
 import { AlertTypeEnum } from "../../../domain/enums/alert-type-enum";
 import { WarningMessageError } from "../../../domain/models/errors/warning-message-error";
@@ -5,7 +6,9 @@ import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
 import { ConfigService } from "../../../domain/services/config-service";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { OpenAIService } from "../../services/openai-service";
+import { Service } from "typedi";
 
+@Service({id: "MembersGptCommandHandler", transient: true})
 export class MembersGptCommandHandler implements ICommandHandler {
   name = "Gpt";
   description = "Comando responsável por buscar informações na OpenAI";

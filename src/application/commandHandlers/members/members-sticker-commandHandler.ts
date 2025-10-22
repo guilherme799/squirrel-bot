@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import path from "path";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { DownloadableMessage, proto } from "baileys";
@@ -9,7 +10,9 @@ import { MediaExtensionsEnum } from "../../../domain/enums/media-extensions-enum
 import { MessageMediaType } from "../../../domain/enums/message-media-type-enum";
 import { InvalidArqumentsError } from "../../../domain/models/errors/invalid-arguments-error";
 import { DangerMessageError } from "../../../domain/models/errors/danger-message-error";
+import { Service } from "typedi";
 
+@Service({ id: "MembersStickerCommandHandler", transient: true })
 export class MembersStickerCommandHandler extends IMediaCommandHandler {
   name = "Sticker";
   description = "Comando para criar figurinhas de imagem/gif/video";
