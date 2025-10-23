@@ -3,14 +3,16 @@ import path from "path";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { DownloadableMessage, proto } from "baileys";
 import { IMediaCommandHandler } from "../../contracts/imedia-command-handler";
-import { ConfigService } from "../../../domain/services/config-service";
-import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
-import { AlertTypeEnum } from "../../../domain/enums/alert-type-enum";
-import { MediaExtensionsEnum } from "../../../domain/enums/media-extensions-enum";
-import { MessageMediaType } from "../../../domain/enums/message-media-type-enum";
-import { InvalidArqumentsError } from "../../../domain/models/errors/invalid-arguments-error";
-import { DangerMessageError } from "../../../domain/models/errors/danger-message-error";
-import { Service } from "typedi";
+import {
+  Service,
+  ConfigService,
+  WhatsAppCommand,
+  AlertTypeEnum,
+  MediaExtensionsEnum,
+  MessageMediaType,
+  InvalidArqumentsError,
+  DangerMessageError,
+} from "squirrel-lib";
 
 @Service({ id: "MembersStickerCommandHandler", transient: true })
 export class MembersStickerCommandHandler extends IMediaCommandHandler {

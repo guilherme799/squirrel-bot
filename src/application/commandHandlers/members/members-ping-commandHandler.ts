@@ -1,9 +1,6 @@
 import "reflect-metadata";
-import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
-import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
-import { ConfigService } from "../../../domain/services/config-service";
+import { Service, ICommandHandler, WhatsAppCommand, ConfigService } from "squirrel-lib";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
-import { Service } from "typedi";
 
 @Service({ id: "MembersPingCommandHandler", transient: true })
 export class MembersPingCommandHandler implements ICommandHandler {

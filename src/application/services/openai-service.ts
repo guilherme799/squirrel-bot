@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import OpenAI from "openai";
-import { Service } from "typedi";
-import { ConfigService } from "../../domain/services/config-service";
+import { Service, ConfigService } from "squirrel-lib";
 
 @Service()
 export class OpenAIService {

@@ -1,9 +1,7 @@
 import "reflect-metadata";
-import { Inject, Service } from "typedi";
 import { SavedFilesRepository } from "../../infrastucture/repositories/savedfiles-repository";
 import { SavedFile } from "../../infrastucture/entities/saved.files";
-import { WhatsAppCommand } from "../../domain/models/whatsapp-command-model";
-import { WarningMessageError } from "../../domain/models/errors/warning-message-error";
+import { Service, WhatsAppCommand, WarningMessageError } from "squirrel-lib";
 
 @Service()
 export class SavedFilesService {

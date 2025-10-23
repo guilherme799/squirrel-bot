@@ -1,13 +1,14 @@
 import "reflect-metadata";
-import Container, { Service } from "typedi";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
-import { ConfigService } from "../../../domain/services/config-service";
-import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
 import {
+  Container,
+  Service,
+  ConfigService,
+  WhatsAppCommand,
   CommandConfig,
   ContextConfig,
-} from "../../../domain/contracts/context-config";
-import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
+  ICommandHandler,
+} from "squirrel-lib";
 
 @Service({ id: "MembersMenuCommandHandler", transient: true })
 export class MembersMenuCommandHandler implements ICommandHandler {

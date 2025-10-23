@@ -1,9 +1,5 @@
 import "reflect-metadata";
-import { Service } from "typedi";
-import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
-import { WarningMessageError } from "../../../domain/models/errors/warning-message-error";
-import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
-import { ConfigService } from "../../../domain/services/config-service";
+import { Service, ICommandHandler, WhatsAppCommand, ConfigService } from "squirrel-lib";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { SavedFilesService } from "../../services/savedfiles-service";
 

@@ -1,10 +1,12 @@
 import { exec } from "child_process";
 import fs from "fs";
 import { ContextCommandUsage } from "../enums/context-command-usage-enum";
-import { WhatsAppCommand } from "../../domain/models/whatsapp-command-model";
-import { WarningMessageError } from "../../domain/models/errors/warning-message-error";
-import { AlertTypeEnum } from "../../domain/enums/alert-type-enum";
-import { ICommandHandler } from "../../domain/contracts/icommand-handler";
+import {
+  WhatsAppCommand,
+  WarningMessageError,
+  AlertTypeEnum,
+  ICommandHandler,
+} from "squirrel-lib";
 
 export abstract class IMediaCommandHandler implements ICommandHandler {
   name!: string;
@@ -12,7 +14,7 @@ export abstract class IMediaCommandHandler implements ICommandHandler {
   variadions!: string[];
   usage!: string;
   context!: ContextCommandUsage;
-  abstract isImage:boolean;
+  abstract isImage: boolean;
 
   public abstract handle(command: WhatsAppCommand): Promise<void>;
 

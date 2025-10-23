@@ -1,13 +1,15 @@
 import "reflect-metadata";
-import { AlertTypeEnum } from "../../../domain/enums/alert-type-enum";
-import { ParticipantsActionEnum } from "../../../domain/enums/participants-action-enum";
-import { InvalidArqumentsError } from "../../../domain/models/errors/invalid-arguments-error";
-import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
-import { ConfigService } from "../../../domain/services/config-service";
+import {
+  AlertTypeEnum,
+  ParticipantsActionEnum,
+  InvalidArqumentsError,
+  WhatsAppCommand,
+  ConfigService,
+  DangerMessageError,
+  ICommandHandler,
+  Service
+} from "squirrel-lib";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
-import { DangerMessageError } from "../../../domain/models/errors/danger-message-error";
-import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
-import { Inject, Service } from "typedi";
 
 @Service({ id: "AdminBanishCommandHandler", transient: true })
 export class AdminBanishCommandHandler implements ICommandHandler {

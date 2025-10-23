@@ -2,12 +2,14 @@ import "reflect-metadata";
 import path from "path";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { IMediaCommandHandler } from "../../contracts/imedia-command-handler";
-import { ConfigService } from "../../../domain/services/config-service";
-import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
-import { AlertTypeEnum } from "../../../domain/enums/alert-type-enum";
-import { InvalidArqumentsError } from "../../../domain/models/errors/invalid-arguments-error";
-import { MediaExtensionsEnum } from "../../../domain/enums/media-extensions-enum";
-import { Service } from "typedi";
+import {
+  Service,
+  ConfigService,
+  WhatsAppCommand,
+  AlertTypeEnum,
+  InvalidArqumentsError,
+  MediaExtensionsEnum,
+} from "squirrel-lib";
 
 @Service({ id: "MembersToImageCommandHandler", transient: true })
 export class MembersToImageCommandHandler extends IMediaCommandHandler {

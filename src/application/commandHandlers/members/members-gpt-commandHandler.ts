@@ -1,11 +1,13 @@
 import "reflect-metadata";
-import { ICommandHandler } from "../../../domain/contracts/icommand-handler";
-import { AlertTypeEnum } from "../../../domain/enums/alert-type-enum";
-import { WarningMessageError } from "../../../domain/models/errors/warning-message-error";
-import { WhatsAppCommand } from "../../../domain/models/whatsapp-command-model";
-import { ConfigService } from "../../../domain/services/config-service";
+import {
+  Service,
+  ICommandHandler,
+  AlertTypeEnum,
+  WarningMessageError,
+  WhatsAppCommand,
+  ConfigService,
+} from "squirrel-lib";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
-import { Inject, Service } from "typedi";
 import { OpenAIService } from "../../services";
 
 @Service({ id: "MembersGptCommandHandler", transient: true })
