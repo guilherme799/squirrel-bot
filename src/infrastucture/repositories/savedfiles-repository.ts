@@ -1,4 +1,4 @@
-import { Service } from "typedi";
+import { Service } from "squirrel-lib";
 import { SavedFile } from "../entities/saved.files";
 
 @Service()
