@@ -1,10 +1,10 @@
 import { MediaType } from "baileys";
-
+import { UUID } from "crypto";
 
 export interface SavedFile {
-  id?: number;
+  id: UUID;
   name: string;
   type: MediaType;
-  groupJid: string;
-  coments: Array<string>;
+  remoteJid?: string | undefined | null;
+  comments: Array<string>;
 }

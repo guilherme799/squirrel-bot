@@ -1,10 +1,16 @@
 import "reflect-metadata";
-import { Service, ICommandHandler, WhatsAppCommand, ConfigService } from "squirrel-lib";
+import {
+  Service,
+  ICommandHandler,
+  WhatsAppCommand,
+  ConfigService,
+  AlertTypeEnum,
+} from "squirrel-lib";
 import { ContextCommandUsage } from "../../enums/context-command-usage-enum";
 import { SavedFilesService } from "../../services/savedfiles-service";
 
-@Service({ id: "AdminSaveMessageCommandHandler", transient: true })
-export class AdminSaveMessageCommandHandler implements ICommandHandler {
+@Service({ id: "MembersSaveMessageCommandHandler", transient: true })
+export class MembersSaveMessageCommandHandler implements ICommandHandler {
   name = "SaveMassage";
   description = "Comando utilizado para salvar uma mensagem multimídia";
   variadions = [
@@ -16,7 +22,7 @@ export class AdminSaveMessageCommandHandler implements ICommandHandler {
     "salvarmsg",
   ];
   usage: string;
-  context = ContextCommandUsage.admin;
+  context = ContextCommandUsage.members;
 
   constructor(
     private savedFilesService: SavedFilesService,
@@ -27,7 +33,14 @@ export class AdminSaveMessageCommandHandler implements ICommandHandler {
   }
 
   public async handle(command: WhatsAppCommand): Promise<void> {
-    //TODO - validar o comando
+    await command.sendAlert(AlertTypeEnum.waiting);
+
     let entity = await this.savedFilesService.saveFile(command);
+    
+    await command.replyAlert(
+      `Arquivo *_${entity.name}_* foi salvo com sucesso!\n 
+      Para enviar o arquivo utilize o comando *_${this.configService.prefix}sendfile ${entity.name}_*`,
+      AlertTypeEnum.success
+    );
   }
 }

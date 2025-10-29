@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv/config";
 import "../../application/commandHandlers/members";
 import "../../application/commandHandlers/admin";
 import "../../application/commandHandlers/owner";

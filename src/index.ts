@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { registerServices } from "./infrastucture/ioc/typedi-loader";
 import { MainService, Container } from "squirrel-lib";
 

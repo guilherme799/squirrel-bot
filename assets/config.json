@@ -2,7 +2,7 @@
   "events_timeout": 300,
   "prefix": "!",
   "tempDir": "/ProgramData/squirrel-bot/temp",
-  "stickersDir": "/ProgramData/squirrel-bot/stickers",
+  "stickersDir": "../../../assets/stickers",
   "openAIConfig": {
     "apiKey": "your_apikey_here",
     "url": "https://api.openai.com/v1/chat/completions"
@@ -77,6 +77,30 @@
             "rolardado",
             "rolldice"
           ]
+        },
+        {
+          "name": "SaveMessage",
+          "variations": [
+            "save",
+            "savemessage",
+            "savemsg",
+            "salvar",
+            "salvarMensagem",
+            "salvarmsg"
+          ]
+        },
+        {
+          "name": "SendFile",
+          "variations": [
+            "send",
+            "sendfile",
+            "sendfilemsg",
+            "sendfilemessage",
+            "enviar",
+            "enviararquivo",
+            "enviararquivomsg",
+            "enviararquivomensagem"
+          ]
         }
       ]
     },
@@ -92,17 +116,6 @@
             "ban",
             "banish",
             "kick"
-          ]
-        },
-        {
-          "name": "SaveMessage",
-          "variations": [
-            "save",
-            "savemessage",
-            "savemsg",
-            "salvar",
-            "salvarMensagem",
-            "salvarmsg"
           ]
         }
       ]

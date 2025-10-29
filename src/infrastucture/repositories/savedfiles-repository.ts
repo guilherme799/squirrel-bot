@@ -1,20 +1,25 @@
 import { Service } from "squirrel-lib";
 import { SavedFile } from "../entities/saved.files";
+import { BaseRepository } from "./base-repository";
+import { ConnectionPoolService } from "../database/connection-pool-service";
 
 @Service()
-export class SavedFilesRepository {
-  public async get(
-    predicate: (filter: SavedFile) => boolean
-  ): Promise<SavedFile[]> {
-    throw new Error("Method not implemented.");
+export class SavedFilesRepository extends BaseRepository<SavedFile> {
+  constructor(connectionService: ConnectionPoolService) {
+    super(connectionService, "SavedFiles");
   }
 
-  public async insert(entity: SavedFile): Promise<SavedFile> {
-    entity.id = Math.random() * 1000;
-    return entity;
-  }
+  public async findByName(
+    name: string,
+    remoteJid: string
+  ): Promise<SavedFile | undefined> {
+    let pool = await this.connectionService.getConnection();
+    let result = await pool
+      .request()
+      .input("name", name)
+      .input("remoteJid", remoteJid)
+      .query<SavedFile>(`SELECT * FROM ${this.tableName} WHERE name = @name and remoteJid = @remoteJid`);
 
-  public async delete(id: number): Promise<void> {
-    throw new Error("Method not implemented.");
+    return result.recordset.find(() => true);
   }
 }

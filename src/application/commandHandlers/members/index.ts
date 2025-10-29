@@ -5,3 +5,5 @@ export * from "./members-menu-commandHandler";
 export * from "./members-ping-commandHandler";
 export * from "./members-sticker-commandHandler";
 export * from "./members-toimage-commandHandler";
+export * from "./members-savemessage-commandHandler";
+export * from "./members-sendfile-commandHandler";
