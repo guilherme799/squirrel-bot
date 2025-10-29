@@ -34,7 +34,7 @@ export class SavedFilesService {
       remoteJid: command.remoteJid,
     };
 
-    await command.downloadMessage(entity.id, extension);
+    await command.downloadMessage(entity.id.toUpperCase(), extension);
     await this.repository.insert(entity);
 
     return entity;
@@ -86,7 +86,7 @@ export class SavedFilesService {
     let entity = await this.tryGetEntityByName(fileName, remoteJid);
     let filePath = path.resolve(
       this.configService.tempDir,
-      `${entity.id}.${this.getFileExtension(entity.type)}`
+      `${entity.id.toUpperCase()}.${this.getFileExtension(entity.type)}`
     );
 
     if (!fs.existsSync(filePath)) {
