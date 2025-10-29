@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "build": "tsc",
-    "start": "node dist/intex.js"
+    "build": "tsc && npm run copy-assets",
+    "start": "node dist/intex.js",
+    "copy-assets": "copyfiles -u 1 src/assets/**/* dist/assets/"
   },
   "keywords": [],
   "author": "",

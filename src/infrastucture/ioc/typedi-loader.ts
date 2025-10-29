@@ -5,7 +5,7 @@ import "../../application/commandHandlers/admin";
 import "../../application/commandHandlers/owner";
 import "../../application/services";
 import "squirrel-lib";
-import config from "../../../assets/config.json";
+import config from "../../assets/config.json";
 import { ConfigService, Container } from "squirrel-lib";
 
 export function registerServices() {
