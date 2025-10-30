@@ -1,3 +1,5 @@
+USE [master];
+GO
 -- Inicialização do banco de dados SquirrelBot
 IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'squirrelbot')
 BEGIN
