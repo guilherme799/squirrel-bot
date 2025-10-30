@@ -23,7 +23,7 @@
     "readline": "^1.3.0",
     "reflect-metadata": "^0.2.2",
     "sonic-boom": "^4.2.0",
-    "squirrel-lib": "^1.0.6",
+    "squirrel-lib": "^1.1.0",
     "typedi": "^0.10.0"
   },
   "devDependencies": {
