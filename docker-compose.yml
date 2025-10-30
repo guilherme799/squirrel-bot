@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  squirrel-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: squirrel-server
+    environment:
+      SA_PASSWORD: "P@ssword123!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    networks:
+      - squirrel-network
+    volumes:
+      - ./data/sql:/var/opt/mssql
+      - ./init-db:/usr/config/entrypoint.d
+
+  squirrel-bot:
+    image: skilo600/squirrel-bot:latest
+    stdin_open: true
+    tty: true 
+    container_name: squirrel-bot
+    depends_on:
+      - squirrel-server
+    environment:
+      NODE_ENV: development
+      DB_CONNECTION_STRING: Server=squirrel-server,1433;Database=squirrelbot;User Id=sa;Password=P@ssword123!;TrustServerCertificate=True;
+    ports:
+      - "3000:3000"
+    networks:
+      - squirrel-network
+    command: sh -c "sleep 10 && npm start"
+
+networks:
+  squirrel-network:
+    driver: bridge

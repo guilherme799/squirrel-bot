@@ -5,6 +5,6 @@ export interface SavedFile {
   id: UUID;
   name: string;
   type: MediaType;
-  remoteJid?: string | undefined | null;
+  remoteJid: string | undefined | null;
   comments: Array<string>;
 }
