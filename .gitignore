@@ -1,4 +1,4 @@
 /dist
 /node_modules
-/assets/baileys-auth
-/assets/temp
+/assets
+/data
