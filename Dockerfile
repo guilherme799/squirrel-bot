@@ -1,6 +1,10 @@
 # Etapa 1: build
 FROM node:lts-alpine AS builder
 
+
+RUN apk update && \
+    apk add ffmpeg
+
 # Define o diretório de trabalho
 WORKDIR /app
 
